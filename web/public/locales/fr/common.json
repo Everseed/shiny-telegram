@@ -1,0 +1,9 @@
+{
+    "welcome": "Bienvenue",
+    "language": "Langue",
+    "navigation": {
+      "home": "Accueil",
+      "about": "À propos",
+      "contact": "Contact"
+    }
+  }

@@ -50,7 +50,16 @@ export class AuthService {
   async verifyMagicLink(token: string) {
     const magicLink = await this.prisma.magicLink.findUnique({
       where: { token },
-      include: { user: true },
+      include: { 
+        user: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            onboardingCompleted: true,
+          }
+        } 
+      },
     });
 
     if (!magicLink || magicLink.expiresAt < new Date()) {
@@ -63,5 +72,12 @@ export class AuthService {
     });
 
     return magicLink.user;
+  }
+
+  async completeOnboarding(userId: string) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { onboardingCompleted: true },
+    });
   }
 } 

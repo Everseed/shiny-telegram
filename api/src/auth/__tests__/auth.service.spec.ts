@@ -93,6 +93,7 @@ describe('AuthService', () => {
     it('should verify valid magic link', async () => {
       const mockMagicLink = {
         token,
+        id: '1',
         userId: '1',
         expiresAt: new Date(Date.now() + 1000 * 60),
         user: mockUser,

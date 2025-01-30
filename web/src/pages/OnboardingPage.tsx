@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '@constants/colors';
+import { completeOnboarding } from '@services/api';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -108,12 +109,21 @@ const OnboardingPage = () => {
   const totalSteps = 3;
   const progress = (step / totalSteps) * 100;
 
+  const handleComplete = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      await completeOnboarding(user.id);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Erreur lors de la finalisation de l\'onboarding:', error);
+    }
+  };
+
   const handleNext = () => {
     if (step < totalSteps) {
       setStep(step + 1);
     } else {
-      // Sauvegarder les données et rediriger vers le dashboard
-      navigate('/dashboard');
+      handleComplete();
     }
   };
 

@@ -66,15 +66,21 @@ const VerifyPage = () => {
     const verifyToken = async () => {
       try {
         const response = await verifyMagicLink(token);
+        const user = response.data;
+        
         setStatus('success');
         setMessage('Connexion réussie !');
         
-        // Stocker le token ou les informations utilisateur si nécessaire
-        localStorage.setItem('user', JSON.stringify(response.data));
+        // Stocker les informations utilisateur
+        localStorage.setItem('user', JSON.stringify(user));
         
-        // Rediriger vers le tableau de bord après un court délai
+        // Rediriger en fonction du statut d'onboarding
         setTimeout(() => {
-          navigate('/dashboard');
+          if (!user.onboardingCompleted) {
+            navigate('/onboarding');
+          } else {
+            navigate('/dashboard');
+          }
         }, 1500);
       } catch (error) {
         setStatus('error');

@@ -6,6 +6,8 @@ import Stats from '@components/Stats';
 import Features from '@components/Features';
 import Background from '@components/Background';
 import { colors } from '@constants/colors';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -66,12 +68,22 @@ const Footer = styled.footer`  background-color: ${colors.background.light};
 `;
 
 const HomePage = () => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
+
   return (
     <Container>
       <Background />
       <ContentWrapper>
         <Header />
         <MainContent>
+        <div className={`welcome ${isRTL ? 'rtl' : 'ltr'}`}>
+          <h1>{t('welcome')}</h1>
+          <div className="auth-buttons">
+            <button>{t('login')}</button>
+            <button>{t('register')}</button>
+          </div>
+        </div>
           <Hero />
           <Stats />
           <Features />

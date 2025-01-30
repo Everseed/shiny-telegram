@@ -10,4 +10,8 @@ export const sendMagicLink = async (email: string) => {
 
 export const verifyMagicLink = async (token: string) => {
   return api.get(`/auth/verify?token=${token}`);
+};
+
+export const completeOnboarding = async (userId: string) => {
+  return api.patch(`/auth/users/${userId}/onboarding`);
 }; 

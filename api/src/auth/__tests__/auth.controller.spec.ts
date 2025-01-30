@@ -35,13 +35,13 @@ describe('AuthController', () => {
   describe('login', () => {
     it('should create magic link', async () => {
       const email = 'test@example.com';
-      await controller.login({ email });
+      await controller.login(email );
       expect(authService.createMagicLink).toHaveBeenCalledWith(email);
     });
 
     it('should return success message', async () => {
       const email = 'test@example.com';
-      const result = await controller.login({ email });
+      const result = await controller.login(email);
       expect(result).toEqual({ message: 'Magic link envoyé' });
     });
   });

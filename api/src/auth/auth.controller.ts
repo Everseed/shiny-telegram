@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Patch, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -15,5 +15,10 @@ export class AuthController {
   async verify(@Query('token') token: string) {
     const user = await this.authService.verifyMagicLink(token);
     return user;
+  }
+
+  @Patch('users/:id/onboarding')
+  async completeOnboarding(@Param('id') id: string) {
+    return this.authService.completeOnboarding(id);
   }
 } 

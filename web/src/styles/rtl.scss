@@ -1,0 +1,24 @@
+// Mixins pour gérer RTL/LTR
+@mixin margin-start($value) {
+    [dir="ltr"] & {
+      margin-left: $value;
+    }
+    [dir="rtl"] & {
+      margin-right: $value;
+    }
+  }
+  
+  @mixin padding-start($value) {
+    [dir="ltr"] & {
+      padding-left: $value;
+    }
+    [dir="rtl"] & {
+      padding-right: $value;
+    }
+  }
+  
+  // Exemple d'utilisation
+  .menu-item {
+    @include margin-start(1rem);
+    @include padding-start(0.5rem);
+  }
